@@ -15,11 +15,11 @@ typedef struct s_philo
 	int id; // philosopher id AKA number
 	int is_eating; // 1 if eating, 0 if not
 	int meals_eaten; // number of meals eaten
-	int last_meal; // time of last meal
+	size_t last_meal; // time of last meal
 	int time_to_die;
 	int time_to_eat;
 	int time_to_sleep;
-	int start_time;
+	size_t start_time;
 	int num_philos;
 	int num_to_eat; // number of times each philosopher must eat
 	int *dead;
@@ -49,4 +49,16 @@ void init_program(t_philo_data *program, t_philo *philos);
 void init_forks(pthread_mutex_t *forks, int num_philos);
 void init_philos(t_philo *philo, t_philo_data *program, pthread_mutex_t *forks, char **argv);
 void init_control_data(t_philo *philo, char **argv); 
+
+int ft_usleep(size_t milsecs);
+int create_threads(t_philo_data *program);
+void destroy_all(t_philo_data *program, pthread_mutex_t *forks);
+void *routine(void *ptr);
+void *monitor_death(void *ptr);
+void print_message(t_philo *philo, char *message);
+void eat(t_philo *philo);
+void philo_sleep(t_philo *philo);
+void think(t_philo *philo);
+int is_sim_over(t_philo *philo);
+
 #endif

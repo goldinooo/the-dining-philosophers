@@ -15,6 +15,7 @@ static int check_arg(char *arg)
 	}
 	return (0);
 }
+
 int validation(char **argv)
 {
 	if (ft_atoi(argv[1]) > MAX_PHILOS || ft_atoi(argv[1]) <= 0 || check_arg(argv[1]) == 1)
@@ -43,7 +44,8 @@ int	main(int argc, char **argv)
 	init_program(&program, philos);
 	init_forks(forks, ft_atoi(argv[1]));
 	init_philos(philos, &program, forks, argv);
-	thread_create(&program, forks);
-	destory_all(NULL, &program, forks);
+	if (create_threads(&program) != 0)
+		return (destroy_all(&program, forks), 1);
+	destroy_all(&program, forks);
 	return (0);
 }

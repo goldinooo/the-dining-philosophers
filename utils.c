@@ -24,13 +24,21 @@ int ft_atoi(char *s)
 	}
 	return (result * sign);
 }
+int ft_usleep(size_t milsecs)
+{
+	size_t start;
+
+	start = get_microtime();
+	while ((get_microtime() - start) < milsecs)
+		usleep(500);
+	return 0;
+}
 
 size_t get_microtime(void)
 {
 	struct timeval tv;
 
 	if (gettimeofday(&tv, NULL) != 0)
-		write(2, "Error getting time\n", 20);
-	tv.tv_sec = tv.tv_sec * 1000 + tv.tv_usec / 1000; // convert to milliseconds
-	return (tv.tv_sec);
+		write(2, "Error getting time\n", 19);
+	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
 }
